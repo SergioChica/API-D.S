@@ -1,0 +1,12 @@
+{
+  "name": "fram",
+  "version": "1.0.0",
+  "scripts": {
+    "start:api": "cd api && npm start",
+    "start:my-project": "cd my-project && npm start",
+    "start": "concurrently \"npm run start:api\" \"npm run start:my-project\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
