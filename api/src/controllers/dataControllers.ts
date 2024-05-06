@@ -12,11 +12,15 @@ export const getData = (req: Request, res: Response) => {
 };
 
 // Controlador para agregar datos
-export const addData = (req: Request, res: Response) => {
-  const { id, name } = req.body;
-  if (!id || !name) {
-    return res.status(400).json({ error: 'Se requieren los campos "id" y "name".' });
+export const postLogin = (req: Request, res: Response) => {
+  const { name, code } = req.body;
+
+  const user = data.find(user => code == user.id && name == user.name)
+
+  if (user) {
+    res.json({ message: 'Your login was successful.' });
+  }else {
+    res.status(401).json({ error: 'Incorrect name and code.'})
   }
-  data.push({ id, name });// Entregamos los datos al arreglo
-  res.status(201).json({ message: 'Datos agregados correctamente.' });// Generamos una respuesta
+  
 };

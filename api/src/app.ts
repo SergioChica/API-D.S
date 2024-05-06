@@ -13,7 +13,7 @@ app.use(express.json());
 // Middleware para manejar diferentes dominios
 app.use(cors());
 // Midleware para definir las rutas
-app.use('/data', dataRoutes);
+app.use('/api', dataRoutes);
 
 // Creamos un eschuchador en este caso para el puerto ya creado
 app.listen(PORT, () => {

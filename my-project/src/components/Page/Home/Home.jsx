@@ -26,32 +26,26 @@ export const Home = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/data');
+            const response = await axios.get('http://localhost:3000/api/data');
             setData(response.data);
         } catch (error) {
             alert('Error al obtener datos', error);
         }
     };
 
-    const handleSubmit = () => {
-        const id = inputIdRef.current.value;
+    const handleSubmit = async () => {
+        const code = inputIdRef.current.value;
         const name = inputNameRef.current.value;
-
-        const user = data.find(user => id == user.id && name == user.name)
-        if (user) {
+        const user = data.find(user => name == user.name)
+        try {
+            const response = await axios.post('http://localhost:3000/api/login', { name, code });
             setModalComplete(true)
             setName(user.name)
-        } else {
-            setModalError(true)
-        }
-        /*try {
-            await axios.post('http://localhost:3000/data', { id, name });
-            fetchData(); // Actualizar datos después de agregar uno nuevo
             inputIdRef.current.value = ''; // Limpiar el campo de ID después de enviar los datos
             inputNameRef.current.value = ''; // Limpiar el campo de nombre después de enviar los datos
         } catch (error) {
-            alert('Error al enviar datos', error);
-        }*/
+            setModalError(true)
+        }
     };
 
     const handleListUsers = () => {
