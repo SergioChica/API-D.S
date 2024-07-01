@@ -15,8 +15,6 @@ export class AuthClientsRoutes {
 
         router.post('/login', controller.loginClient);
         router.post('/register', controller.registerClient)
-        router.get('/client/:id', controller.getClientById)
-        router.put('/client/:id', controller.updateClient)
 
         return router;
     }

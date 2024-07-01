@@ -1,64 +1,46 @@
-import { AuthDataSource, CustomError, RegisterClientDto, ClientsEntity, UpdateClientDto } from "../../../domain";
-import { Database } from "../../../data/Database";
-export class AuthDataSourceImpl implements AuthDataSource {
-    private db: Database;
+import { BcryptAdapter } from "../../../config";
+import { ClientModel } from "../../../data";
+import { AuthDataSource, CustomError, RegisterClientDto, ClientsEntity } from "../../../domain";
+import { ClientMapper } from "../../mappers/clients/client.mappers";
 
-    constructor(){
-        this.db = new Database();
-    }
-    
+type HashFuntion = (password: string) => string;
+type CompareFunction = (password: string, hashed: string) => boolean;
+export class AuthDataSourceImpl implements AuthDataSource {
+
+    constructor(
+        private readonly hashPassword: HashFuntion = BcryptAdapter.hash,
+        private readonly comparePassword: CompareFunction = BcryptAdapter.compare
+    ) {}
     
     async register(registerClientDto: RegisterClientDto): Promise<ClientsEntity> {
-        const {name, email, password } = registerClientDto;
-        
-        const existingClient = this.db.findClientByEmail(email)
-        if (existingClient) {
-            throw CustomError.badRequest(' Client already exists')
-        }
+        const { name, lastName, email, password, address } = registerClientDto;
 
-        try{
 
-            const newClient=  new ClientsEntity(
-                (this.db.clients.length + 1).toString(),
-                name,
-                email,
-                password
-            );
+        try {
 
-            this.db.addClient(newClient);
-            return newClient;
-        }catch(error){
-            if(error instanceof CustomError){
+            const exists = await ClientModel.findOne({ email });
+            if (exists) throw CustomError.badRequest("User already exists")
+
+            const newClient = await ClientModel.create({
+                name: name,
+                lastName: lastName,
+                email: email,
+                address: address,
+                password: this.hashPassword(password),
+            });
+           
+            await newClient.save();
+
+            return ClientMapper.clientEntityFromObject(newClient)
+            
+        } catch (error) {
+            if (error instanceof CustomError) {
                 throw error;
             }
             throw CustomError.internalServer();
         }
     }
 
-    async login(email: string, password: string): Promise<ClientsEntity> {
-        const client = this.db.findClientByEmail(email);
-        if (!client || client.password !== password) {
-            throw CustomError.unauthorized('Invalid credentials')
-        }
-        return client;
-    }
 
-    async getClientById(id: string): Promise<ClientsEntity> {
-        const  client = this.db.findClientById(id);
-        if (!client) {
-            throw CustomError.notFound('User not found')
-        }
-        return client
-    }
-
-    async updateClient(id: string, updateClientDto: UpdateClientDto): Promise<ClientsEntity> {
-        const client = this.db.findClientById(id);
-        if (!client) {
-            throw CustomError.notFound('User not found')
-        }
-
-        Object.assign(client, updateClientDto)
-        return client
-    }
 
 }

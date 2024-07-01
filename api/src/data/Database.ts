@@ -1,8 +1,10 @@
 interface Client {
-    id: string;
-    name: string;
-    email: string;
-    password: string;
+    id: string,
+    name: string,
+    lastName: string,
+    email: string,
+    password: string,
+    address: string,
 }
 
 export class Database {
