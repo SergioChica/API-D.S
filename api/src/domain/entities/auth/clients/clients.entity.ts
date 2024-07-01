@@ -1,10 +1,20 @@
+// src/domain/entity/ClientEntity.ts
+import { Entity, PrimaryGeneratedColumn , Column } from 'typeorm';
+
+@Entity('clientsss')
 export class ClientsEntity {
-    constructor(
-        public id: string,
-        public name: string,
-        public lastName: string,
-        public email: string,
-        public password: string,
-        public address: string,
-    ){}
+  @PrimaryGeneratedColumn()
+  id?: number;
+
+  @Column()
+  name?: string;
+
+  @Column({ unique: true })
+  email?: string;
+
+  @Column()
+  password?: string;
+
+  @Column()
+  address?: string;
 }

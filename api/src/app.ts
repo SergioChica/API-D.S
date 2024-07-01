@@ -1,5 +1,6 @@
 import { envs } from './config';
-import { MongoDatabase } from './data';
+import { AppDataSource } from './data/mysql/ormconfig';
+// import { MongoDatabase } from './data';
 import { AppRoutes } from './presentation/routes';
 import { Server } from './presentation/server';
 
@@ -9,14 +10,21 @@ import { Server } from './presentation/server';
 
 async function main() {
 
-  await MongoDatabase.connect({
+  // await MongoDatabase.connect({
 
-    dbName: envs.MONGO_DB_NAME,
-    mongoUrl: envs.MONGO_URL,
-  });
+  //   dbName: envs.MONGO_DB_NAME,
+  //   mongoUrl: envs.MONGO_URL,
+  // });
+
+  try {
+    await AppDataSource.initialize();
+    new Server({
+      port: envs.PORT,
+      routes: AppRoutes.routes,
+    }).start();
+  } catch (error) {
+    console.error('Error during Data Source initialization:', error);
+  }
   
-  new Server({
-    port: envs.PORT,  
-    routes: AppRoutes.routes
-  }).start();
+
 }

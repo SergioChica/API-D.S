@@ -2,22 +2,34 @@ import { CustomError, ClientsEntity } from "../../../domain";
 
 
 export class ClientMapper {
+    public static toDomain(object: any): ClientsEntity {
+        const { id, name, email, password, address } = object;
 
-    static clientEntityFromObject(object: { [key: string]: any}) {
-
-        const { id, _id, name, lastName, email, password, address} = object;
-
-        if (!_id || !id) {
-            throw CustomError.badRequest("Missing id")
+        if (!id) {
+            throw new Error("Missing id");
         }
 
-        if (!name) throw CustomError.badRequest("Missing name");
-        if (!lastName) throw CustomError.badRequest("Missing lastName");
-        if (!email) throw CustomError.badRequest("Missing email");
-        if (!password) throw CustomError.badRequest("Missing password");
-        if (!address) throw CustomError.badRequest("Missing address");
+        if (!name) throw new Error("Missing name");
+        if (!email) throw new Error("Missing email");
+        if (!password) throw new Error("Missing password");
+        if (!address) throw new Error("Missing address");
 
-        return new ClientsEntity(_id || id, name, lastName, email, password, address);      
-        
+        return {
+            id,
+            name,
+            email,
+            password,
+            address,
+        };
+    }
+
+    public static toPersistence(entity: ClientsEntity): any {
+        return {
+            id: entity.id,
+            name: entity.name,
+            email: entity.email,
+            password: entity.password,
+            address: entity.address,
+        };
     }
 }

@@ -4,7 +4,6 @@ export class RegisterClientDto {
     private constructor(
         
         public name: string,
-        public lastName: string,
         public email: string,
         public address: string,
         public password: string,
@@ -12,10 +11,9 @@ export class RegisterClientDto {
 
         static create( object: {[ key: string]: any;}): [ string?, RegisterClientDto?] {
 
-            const { name, lastName, email, password, address } = object;
+            const { name, email, password, address } = object;
 
             if ( !name ) return [ 'Missing name' ];
-            if ( !lastName ) return [ 'Missing lastName' ];
             if ( !email ) return [ 'Missing email' ];
             if ( !address ) return [ 'Missing address' ];
             if ( !Validators.email.test( email ) ) return [ 'Email is not valid '];
@@ -24,7 +22,7 @@ export class RegisterClientDto {
             
             return [
                 undefined,
-                new RegisterClientDto(name, lastName, email, address , password)
+                new RegisterClientDto(name, email, address , password)
             ];
         }
 }
