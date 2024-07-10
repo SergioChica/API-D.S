@@ -1,5 +1,5 @@
-import { AuthDataSource, AuthRepository, RegisterClientDto, ClientsEntity } from "../../../domain";
-
+import { ClientsEntity } from "../../../data";
+import { AuthDataSource, AuthRepository, RegisterClientDto } from "../../../domain";
 export class AuthRepositoryImpl implements AuthRepository {
 
     constructor(
@@ -9,5 +9,9 @@ export class AuthRepositoryImpl implements AuthRepository {
     register(registerClientDto: RegisterClientDto): Promise<ClientsEntity> {
         return this.authDataSource.register(registerClientDto);
     }
-    
+
+    login(email: string, password: string): Promise<{ token: string, message: string }> {
+        return this.authDataSource.login(email, password);
+    }
+
 }

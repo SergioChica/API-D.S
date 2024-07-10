@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm";
-import { ClientsEntity } from "../../domain";
+import { ClientsEntity } from "../entities/auth/clients/clients.entity";
+
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -8,7 +9,7 @@ export const AppDataSource = new DataSource({
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    synchronize: true, // Desactiva en producción
+    synchronize: false, // Desactiva en producción
     logging: false,
     entities: [ClientsEntity], // Agrega todas tus entidades aquí
     migrations: [],

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import { RegisterClientDto, AuthRepository, CustomError, ClientsEntity  } from "../../../domain";
-
+import { RegisterClientDto, AuthRepository, CustomError  } from "../../../domain";
+import { ClientsEntity } from "../../../data";
+import { BcryptAdapter, JwtAdapter } from "../../../config";
 export class AuthClientsController {
     
     constructor(
@@ -28,10 +29,17 @@ export class AuthClientsController {
        }
     }
 
-    loginClient = (req: Request, res: Response) => {
+    loginClient = async (req: Request, res: Response) => {
         const {email, password} = req.body;
-        if (!email || !password) {
-            return res.status(400).json({ error: ' Email and password are required'})
+        if (!email ||!password) {
+            return res.status(400).json({ error: 'Email and password are required'})
+        }
+
+        try {
+            const { token, message } = await this.authRepository.login(email, password)
+            res.json({ token, message })
+        } catch (error) {
+            this.handleError(error, res)
         }
     }
 }
