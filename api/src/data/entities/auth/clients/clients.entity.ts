@@ -3,30 +3,30 @@ import { Entity, PrimaryGeneratedColumn , Column } from 'typeorm';
 
 @Entity('example')
 export class ClientsEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ name: 'Id_Usuario'})
   id?: number;
 
-  @Column({ name: 'name'})
+  @Column({ name: 'Nombre'})
   name?: string;
 
-  @Column({ name: 'lastName'})
+  @Column({ name: 'Apellido'})
   lastName?: string;
 
-  @Column({ unique: true, name: 'email' })
+  @Column({ unique: true, name: 'Email' })
   email?: string;
   
-  @Column({ name: 'phone'})
+  @Column({ name: 'Telefono'})
   phone?: number;
 
-  @Column({ name: 'password'})
-  password?: string;
-
-  @Column({ name: 'address'})
+  @Column({ name: 'Direccion'})
   address?: string;
   
-  @Column({ name: 'assistance'})
+  @Column({ name: 'Asistencia'})
   assistance?: string;
 
-  @Column({ name: 'state'})
-  state?: string;
+  // @Column({ name: 'state'})
+  // state?: string;
+  
+  @Column({ name: 'Id_Centro '})
+  idCenter?: number;
 }

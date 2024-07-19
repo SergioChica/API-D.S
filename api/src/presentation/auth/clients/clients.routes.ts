@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { AuthClientsController } from "./clients.controller";
-import { AuthDataSourceImpl, AuthRepositoryImpl } from "../../../infraestructure";
+import { AuthClientsDataSourceImpl, AuthClientsRepositoryImpl } from "../../../infraestructure";
 
 
 export class AuthClientsRoutes {
@@ -9,11 +9,11 @@ export class AuthClientsRoutes {
 
         const router = Router();
 
-        const datasource = new AuthDataSourceImpl();
-        const AuthRepository = new AuthRepositoryImpl(datasource); 
+        const datasource = new AuthClientsDataSourceImpl();
+        const AuthRepository = new AuthClientsRepositoryImpl(datasource); 
         const controller = new AuthClientsController(AuthRepository);
 
-        router.post('/login', controller.loginClient);
+        // router.post('/login', controller.loginClient);
         router.post('/register', controller.registerClient)
 
         return router;

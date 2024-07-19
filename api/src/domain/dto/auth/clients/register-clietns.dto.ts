@@ -8,25 +8,25 @@ export class RegisterClientDto {
         public email: string,
         public phone: number,
         public address: string,
-        public password: string,
+        public assistance: string,
+        public idCenter: number,
     ){}
 
         static create( object: {[ key: string]: any;}): [ string?, RegisterClientDto?] {
 
-            const { name,lastName, email, password, address, phone } = object;
+            const { name ,lastName, email, assistance, address, phone, idCenter } = object;
 
             if ( !name ) return [ 'Missing name' ];
             if ( !lastName ) return [ 'Missing lastName' ];
             if ( !email ) return [ 'Missing email' ];
             if ( !phone ) return [ 'Missing phone' ];
             if ( !address ) return [ 'Missing address' ];
+            if ( !idCenter ) return [ 'Missing id center' ];
             if ( !Validators.email.test( email ) ) return [ 'Email is not valid '];
-            if ( !password ) return [ 'Missing password' ];
-            if ( password.length < 6 ) return [ 'Password too short ' ];
             
             return [
                 undefined,
-                new RegisterClientDto(name,lastName, email, phone, address , password)
+                new RegisterClientDto(name,lastName, email, phone, address , assistance, idCenter)
             ];
         }
 }
