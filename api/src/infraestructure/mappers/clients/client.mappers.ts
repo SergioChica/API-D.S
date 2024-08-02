@@ -6,16 +6,16 @@ export class ClientMapper {
         const { id, name, lastName, email, phone, assistance, address, idCenter } = object;
 
         if (!id) {
-            throw CustomError.badRequest("Missing id");
+            throw CustomError.badRequest("Falta id");
         }
 
-        if (!name) throw CustomError.badRequest("Missing name");
-        if (!lastName) throw CustomError.badRequest("Missing lastName");
-        if (!email) throw CustomError.badRequest("Missing email");
-        if (!phone) throw CustomError.badRequest("Missing phone");
-        if (!assistance) throw CustomError.badRequest("Missing assistance");
-        if (!address) throw CustomError.badRequest("Missing address");
-        if (!idCenter) throw CustomError.badRequest("Missing idCenter");
+        if (!name) throw CustomError.badRequest("Falta");
+        if (!lastName) throw CustomError.badRequest("Falta Apellido");
+        if (!email) throw CustomError.badRequest("Falta Correo");
+        if (!phone) throw CustomError.badRequest("Falta Telefono");
+        if (!assistance) throw CustomError.badRequest("Falta Asistencia");
+        if (!address) throw CustomError.badRequest("Falta direccion");
+        if (!idCenter) throw CustomError.badRequest("Falta id de Centro");
 
         return {
             id,

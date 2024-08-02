@@ -1,7 +1,7 @@
 import { EmployeesEntity } from "../../../data";
-import { RegisterEmployeesDto } from "../../dto/auth/employees/register-clietns.dto";
+import { RegisterEmployeesDto } from "../../dto/auth/employees/register-employees.dto";
 
 export abstract class AuthEmployeesDataSource {
-    abstract register(egisterEmployeesDto:RegisterEmployeesDto): Promise<EmployeesEntity>
+    abstract register(registerEmployeesDto:RegisterEmployeesDto): Promise<EmployeesEntity>
     abstract login(email: string, password: string): Promise<{ token: string, message: string }>;
 }

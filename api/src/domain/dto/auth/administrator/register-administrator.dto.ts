@@ -15,14 +15,18 @@ export class RegisterAdministratorDto {
 
             const { name, email, password, address, phone, idCenter } = object;
 
-            if ( !name ) return [ 'Missing name' ];
-            if ( !email ) return [ 'Missing email' ];
-            if ( !phone ) return [ 'Missing phone' ];
-            if ( !address ) return [ 'Missing address' ];
-            if ( !idCenter ) return [ 'Missing id center' ];
-            if ( !Validators.email.test( email ) ) return [ 'Email is not valid '];
-            if ( !password ) return [ 'Missing password' ];
-            if ( password.length < 6 ) return [ 'Password too short ' ];
+            if ( !name ) return [ 'Falta el Nombre' ];
+            if ( !Validators.text.test( name ) ) return [ 'Nombre no valido'];
+            if ( !email ) return [ 'Falta el Correo' ];
+            if ( !Validators.email.test( email ) ) return [ 'Correo no valido'];
+            if ( !phone ) return [ 'Falta el Numero telefonico' ];
+            if ( phone.length < 10 ) return [ 'Numero telefonico muy corto' ];
+            if ( !Validators.number.test( phone ) ) return [ 'Solo caracteres numericos en numero telefonico'];
+            if ( !idCenter ) return [ 'Falta el id del Centro' ];
+            if ( !Validators.number.test( idCenter ) ) return [ 'Solo caracteres numericos en id centro'];
+            if ( !address ) return [ 'Falta la direccion' ];
+            if ( !password ) return [ 'Falta la contraseña' ];
+            if ( password.length < 6 ) return [ 'Contraseña muy corta' ];
             
             return [
                 undefined,

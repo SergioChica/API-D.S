@@ -21,6 +21,6 @@ export class AdministratorEntity {
   @Column({ name: 'Direccion'})
   address?: string;
 
-  @Column({ name: 'Id_Centro '})
+  @Column({ name: 'ID_Centro'})
   idCenter?: number;
 }

@@ -4,4 +4,6 @@ import { RegisterClientDto } from "../../dto/auth/clients/register-clietns.dto";
 export abstract class AuthClientsDataSource {
     abstract register(registerClientDto:RegisterClientDto): Promise<ClientsEntity>
     // abstract login(email: string, password: string): Promise<{ token: string, message: string }>;
+    abstract getAllClients(): Promise<ClientsEntity[]>;
+    abstract getClientById(id: number): Promise<ClientsEntity | null>;
 }

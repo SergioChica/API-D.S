@@ -1,5 +1,5 @@
 export * from './dto/auth/clients/register-clietns.dto'
-export * from './dto/auth/employees/register-clietns.dto'
+export * from './dto/auth/employees/register-employees.dto'
 export * from './dto/auth/establishment/register-establishmentdto'
 export * from './dto/auth/administrator/register-administrator.dto'
 export * from './dto/auth/products/register-productsdto'

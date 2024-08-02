@@ -13,7 +13,7 @@ export class AuthClientsController {
            return res.status(error.statusCode).json({ error: error.message });
          }
     
-         return res.status(500).json({ error: 'Internal Server Error' });
+         return res.status(500).json({ error: 'Error del servidor' });
        }
 
     registerClient = async (req: Request, res: Response) => {
@@ -27,6 +27,36 @@ export class AuthClientsController {
         this.handleError(error, res);
        }
     }
+
+    getAllClients = async (req: Request, res: Response) => {
+      try {
+          const clients = await this.authClientsRepository.getAllClients();
+          res.json(clients);
+      } catch (error) {
+          this.handleError(error, res);
+      }
+  }
+
+  getClientById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    // Convertir el ID de string a number
+    const clientId = parseInt(id, 10);
+
+    if (isNaN(clientId)) {
+        return res.status(400).json({ error: 'Formato de id invalido' });
+    }
+
+    try {
+        const client = await this.authClientsRepository.getClientById(clientId);
+        if (!client) {
+            return res.status(404).json({ error: 'Cliente no existe' });
+        }
+        res.json(client);
+    } catch (error) {
+        this.handleError(error, res);
+    }
+}
 
     // loginClient = async (req: Request, res: Response) => {
     //     const {email, password} = req.body;

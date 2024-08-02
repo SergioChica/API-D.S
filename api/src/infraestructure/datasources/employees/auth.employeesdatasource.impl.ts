@@ -22,9 +22,9 @@ export class AuthEmployeesDataSourceImpl implements AuthEmployeesDataSource {
         try {
 
             const existingEmployees = await this.employeesRepository.findOne({ where: { email } });
-            if (existingEmployees) throw CustomError.badRequest("User already exists")
+            if (existingEmployees) throw CustomError.badRequest("Este empleado ya existe")
 
-            const newClient = this.employeesRepository.create({
+            const newEmployees = this.employeesRepository.create({
                 name: name,
                 email: email,
                 phone: phone,
@@ -33,12 +33,12 @@ export class AuthEmployeesDataSourceImpl implements AuthEmployeesDataSource {
                 idCenter: idCenter,
             });
            
-            await this.employeesRepository.save(newClient);
+            await this.employeesRepository.save(newEmployees);
 
-            return EmployeesMapper.toDomain(newClient);
+            return EmployeesMapper.toDomain(newEmployees);
             
         } catch (error) {
-            // console.error("Error registering client:", error);
+            console.error("Error registering Employees:", error);
             if (error instanceof CustomError) {
                 throw error;
             }
@@ -46,23 +46,21 @@ export class AuthEmployeesDataSourceImpl implements AuthEmployeesDataSource {
         }
     }
 
-    async   login(email:string, password: string): Promise<{ token: string, message: string }> {
+    async login(email:string, password: string): Promise<{ token: string, message: string }> {
         try {
             const employees = await this.employeesRepository.findOne({ where: { email }});
-            if (!employees) throw CustomError.badRequest("Invalid crendetials");
+            if (!employees) throw CustomError.badRequest("Correo invalido");
 
-            if (!employees.password) throw CustomError.unauthorized("Invalid credentials");
+            if (!employees.password) throw CustomError.unauthorized("Contraseña Invalida");
             
             const isPasswordValid = BcryptAdapter.compare(password, employees.password);
-            if (!isPasswordValid) throw CustomError.unauthorized("Invalid crendetials");
+            if (!isPasswordValid) throw CustomError.unauthorized("Contraseña Invalida");
 
-            const token = jwt.sign({ id: employees.id, email: employees.email}, envs.JWT_SECRET,{
-                expiresIn: '1h',
-            });
+            const token = jwt.sign({ data: {email: employees.email}}, envs.JWT_SECRET, {expiresIn: '1h',});
 
             return {
                 token,
-                message: "Login successful"
+                message: "Inicio de sesion exitoso"
             };
         } catch (error) {
             if (error instanceof CustomError) {

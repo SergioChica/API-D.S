@@ -1,7 +1,7 @@
 // src/domain/entity/ClientEntity.ts
 import { Entity, PrimaryGeneratedColumn , Column } from 'typeorm';
 
-@Entity('example')
+@Entity('Usuario')
 export class ClientsEntity {
   @PrimaryGeneratedColumn({ name: 'Id_Usuario'})
   id?: number;
@@ -27,6 +27,6 @@ export class ClientsEntity {
   // @Column({ name: 'state'})
   // state?: string;
   
-  @Column({ name: 'Id_Centro '})
+  @Column({ name: 'Id_Centro'})
   idCenter?: number;
 }

@@ -1,17 +1,15 @@
 import React, {useContext} from 'react'
-import { FormsUsers } from '../../shared/Forms/Forms'
-import { ModalCreate } from '../../shared/ModalCreate/ModalCreate'
+import { FormsEmployees } from '../../shared/Forms/Forms'
+import { ModalCreate } from '../../Modals/ModalCreate/ModalCreate'
 import { StateContext } from '../../Context/Context'
 import { FaRegCheckCircle } from 'react-icons/fa'
 
+export const Employees = () => {
+    const { createEmpleyees, setCreateEmpleyees  } = useContext(StateContext);
 
-export const Users = () => {
-    const { createUser, setCreateUser } = useContext(StateContext);
-
-    
-    return (
-        <div className='w-full h-full flex flex-1 items-center relative bg-[#F0ECE3] '>
-            <svg className="w-[470px] h-[488px] absolute top-[35%] right-[35%] " width="1421" height="973" viewBox="0 0 1421 973" fill="none" xmlns="http://www.w3.org/2000/svg">
+  return (
+    <div className='w-full h-full flex flex-1 items-center relative bg-[#F0ECE3] '>
+    <svg className="w-[470px] h-[488px] absolute top-[35%] right-[35%] " width="1421" height="973" viewBox="0 0 1421 973" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path opacity="0.24" d="M1414.14 719.4C1400.58 777.51 1361.34 830.07 1307.49 855.9C1180.71 916.71 1018.47 822 893.012 885.33C852.092 906.06 819.602 942.09 776.912 958.86C744.032 971.79 707.732 972.21 672.392 972.42C562.052 973.17 446.282 972.66 349.442 919.86C304.292 895.26 265.742 860.52 228.422 825.06C206.702 804.21 184.802 782.79 163.982 760.62C153.932 750.06 144.152 739.29 134.612 728.31C87.1218 673.47 46.4718 613.65 21.9018 545.76C-17.7882 435.84 -5.42822 299.73 79.8918 219.69C110.762 190.65 148.892 170.67 186.602 151.2C303.692 90.8702 424.022 31.4702 554.102 10.8002C668.072 -7.40983 795.812 -1.16982 908.282 24.3602C996.872 44.6102 1085.97 31.0502 1174.23 52.2902C1250.67 70.7702 1323.72 117.57 1356.9 188.94C1392 264.45 1377.9 352.35 1386.27 435.21C1395.75 530.64 1435.89 625.98 1414.14 719.4Z" fill="#692FDB"/>
 <path d="M1197.72 603.151C1203.09 604.201 1208.37 605.821 1213.41 607.951C1226.49 612.931 1239.57 618.241 1253.31 620.821C1267.05 623.401 1281.78 623.161 1294.5 617.341C1304.79 612.601 1313.22 604.561 1318.41 594.481C1318.71 594.031 1318.83 593.491 1318.71 592.951C1318.44 592.501 1318.02 592.141 1317.51 591.991L1286.61 579.181C1279.08 575.821 1271.28 573.091 1263.3 571.051C1253.04 569.101 1242.6 568.291 1232.16 568.621C1221.27 568.291 1210.35 569.071 1199.61 570.901C1188.78 572.791 1178.73 577.741 1170.66 585.181C1168.17 587.491 1166.31 590.371 1165.23 593.581C1162.83 602.041 1168.23 602.761 1174.83 602.671C1182.36 602.581 1190.13 601.771 1197.75 603.091L1197.72 603.151Z" fill="#231F20"/>
 <path d="M1197.72 603.151C1203.09 604.201 1208.37 605.821 1213.41 607.951C1226.49 612.931 1239.57 618.241 1253.31 620.821C1267.05 623.401 1281.78 623.161 1294.5 617.341C1304.79 612.601 1313.22 604.561 1318.41 594.481C1318.71 594.031 1318.83 593.491 1318.71 592.951C1318.44 592.501 1318.02 592.141 1317.51 591.991L1286.61 579.181C1279.08 575.821 1271.28 573.091 1263.3 571.051C1253.04 569.101 1242.6 568.291 1232.16 568.621C1221.27 568.291 1210.35 569.071 1199.61 570.901C1188.78 572.791 1178.73 577.741 1170.66 585.181C1168.17 587.491 1166.31 590.371 1165.23 593.581C1162.83 602.041 1168.23 602.761 1174.83 602.671C1182.36 602.581 1190.13 601.771 1197.75 603.091L1197.72 603.151Z" fill="url(#paint0_linear_0_1)"/>
@@ -195,8 +193,9 @@ export const Users = () => {
 </linearGradient>
 </defs>
 </svg>
-            <FormsUsers  />
-            <ModalCreate visibility={createUser} IconAlert={FaRegCheckCircle} closeButton={() => setCreateUser(false)} closeIcon={() => setCreateUser(false)} text={`Your login was successful, Welcome ${name}.`} />
-        </div>
-    )
+
+    <FormsEmployees  />
+    <ModalCreate visibility={createEmpleyees} IconAlert={FaRegCheckCircle} closeButton={() => setCreateEmpleyees(false)} closeIcon={() => setCreateEmpleyees(false)} text={`Your login was successful, Welcome ${name}.`} />
+</div>
+  )
 }

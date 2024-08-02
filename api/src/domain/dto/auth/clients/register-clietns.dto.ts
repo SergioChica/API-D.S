@@ -3,6 +3,7 @@ import { Validators } from '../../../../config'
 export class RegisterClientDto {
     private constructor(
         
+        public id: number,
         public name: string,
         public lastName: string,    
         public email: string,
@@ -14,19 +15,26 @@ export class RegisterClientDto {
 
         static create( object: {[ key: string]: any;}): [ string?, RegisterClientDto?] {
 
-            const { name ,lastName, email, assistance, address, phone, idCenter } = object;
+            const { id, name ,lastName, email, assistance, address, phone, idCenter } = object;
 
-            if ( !name ) return [ 'Missing name' ];
-            if ( !lastName ) return [ 'Missing lastName' ];
-            if ( !email ) return [ 'Missing email' ];
-            if ( !phone ) return [ 'Missing phone' ];
-            if ( !address ) return [ 'Missing address' ];
-            if ( !idCenter ) return [ 'Missing id center' ];
+            if ( !id ) return [ 'Falta la cedula' ];
+            if ( !Validators.number.test( id ) ) return [ 'Solo caracteres numericos en numero de cedula'];
+            if ( !name ) return [ 'Falta el Nombre' ];
+            if ( !Validators.text.test( name ) ) return [ 'Nombre no valido'];
+            if ( !lastName ) return [ 'Falta el apellido' ];
+            if ( !Validators.text.test( lastName ) ) return [ 'Apellido no valido'];
+            if ( !email ) return [ 'Falta el Correo' ];
             if ( !Validators.email.test( email ) ) return [ 'Email is not valid '];
+            if ( !phone ) return [ 'Falta el Numero telefonico' ];
+            if ( !Validators.number.test( phone ) ) return [ 'Solo caracteres numericos en numero telefonico'];
+            if ( !address ) return [ 'Falta la direccion' ];
+            if ( !assistance ) return [ 'Falta la direccion' ];
+            if ( !idCenter ) return [ 'Falta el id del Centro' ];
+            if ( !Validators.number.test( idCenter ) ) return [ 'Solo caracteres numericos en id centro'];
             
             return [
                 undefined,
-                new RegisterClientDto(name,lastName, email, phone, address , assistance, idCenter)
+                new RegisterClientDto(id, name,lastName, email, phone, address , assistance, idCenter)
             ];
         }
 }

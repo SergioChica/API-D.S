@@ -38,7 +38,7 @@ export class AuthAdministratorDataSourceImpl implements AuthAdministratorDataSou
             return AdministratorMapper.toDomain(newAdministrator);
             
         } catch (error) {
-            // console.error("Error registering client:", error);
+            console.error("Error registering client:", error);
             if (error instanceof CustomError) {
                 throw error;
             }
@@ -48,23 +48,22 @@ export class AuthAdministratorDataSourceImpl implements AuthAdministratorDataSou
 
     async login(email:string, password: string): Promise<{ token: string, message: string }> {
         try {
-            const client = await this.administratorRepository.findOne({ where: { email }});
-            if (!client) throw CustomError.badRequest("Invalid crendetials");
+            const admin = await this.administratorRepository.findOne({ where: { email }});
+            if (!admin) throw CustomError.badRequest("Correo Invalido");
 
-            if (!client.password) throw CustomError.unauthorized("Invalid credentials");
+            if (!admin.password) throw CustomError.unauthorized("Contraseña Invalida");
             
-            const isPasswordValid = BcryptAdapter.compare(password, client.password);
-            if (!isPasswordValid) throw CustomError.unauthorized("Invalid crendetials");
+            const isPasswordValid = BcryptAdapter.compare(password, admin.password);
+            if (!isPasswordValid) throw CustomError.unauthorized("Contraseña Invalida");
 
-            const token = jwt.sign({ id: client.id, email: client.email}, envs.JWT_SECRET,{
-                expiresIn: '1h',
-            });
+            const token = jwt.sign({ data: {email: admin.email}}, envs.JWT_SECRET, {expiresIn: '1h',});
 
             return {
                 token,
-                message: "Login successful"
+                message: "Inicio de sesion exitoso"
             };
         } catch (error) {
+            console.error("Error registering client:", error);
             if (error instanceof CustomError) {
                 throw error;
             }

@@ -4,6 +4,8 @@ import { AuthEmployeesRoutes } from "./auth/employees/employees.routes";
 import { AuthEstablishmentRoutes } from "./auth/establishment/establishment.routes";
 import { AuthAdministratorRoutes } from "./auth/administrator/administrator.routes";
 import { AuthProductsRoutes } from "./auth/products/products.routes";
+import { VerifyCodeRoutes } from "./auth/verifycode/verifycode.routes";
+import { VerifyTokenAndSendCodeCodeRoutes } from "./auth/verifycode/verifyTokenAndSendCode.routes";
 
 
 export class AppRoutes {
@@ -15,6 +17,8 @@ export class AppRoutes {
         router.use('/ds/auth/establishment', AuthEstablishmentRoutes.routes)
         router.use('/ds/auth/administrator', AuthAdministratorRoutes.routes)
         router.use('/ds/auth/products', AuthProductsRoutes.routes)
+        router.use('/ds/auth/twoverific', VerifyCodeRoutes.routes)
+        router.use('/ds/auth/vr', VerifyTokenAndSendCodeCodeRoutes.routes)
 
         return router;
     }

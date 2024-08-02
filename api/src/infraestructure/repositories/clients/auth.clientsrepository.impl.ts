@@ -14,4 +14,11 @@ export class AuthClientsRepositoryImpl implements AuthClientsRepository {
     //     return this.authClientsDataSource.login(email, password);
     // }
 
+    getAllClients(): Promise<ClientsEntity[]> {
+        return this.authClientsDataSource.getAllClients();
+    }
+
+    getClientById(id: number): Promise<ClientsEntity | null> {
+        return this.authClientsDataSource.getClientById(id);
+    }
 }

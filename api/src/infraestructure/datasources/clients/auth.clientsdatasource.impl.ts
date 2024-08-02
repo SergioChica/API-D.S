@@ -15,14 +15,14 @@ export class AuthClientsDataSourceImpl implements AuthClientsDataSource {
     }
     
     async register(registerClientDto: RegisterClientDto): Promise<ClientsEntity> {
-        const { name, lastName, email, phone, address, assistance, idCenter} = registerClientDto;
+        const { id, name, lastName, email, phone, address, assistance, idCenter} = registerClientDto;
 
         // const hashedPassword = BcryptAdapter.hash(password);
         
         try {
 
             const existingClient = await this.clientRepository.findOne({ where: { email } });
-            if (existingClient) throw CustomError.badRequest("User already exists")
+            if (existingClient) throw CustomError.badRequest("Este usuario ya existe")
 
             const newClient = this.clientRepository.create({
                 name: name,
@@ -44,6 +44,23 @@ export class AuthClientsDataSourceImpl implements AuthClientsDataSource {
             if (error instanceof CustomError) {
                 throw error;
             }
+            throw CustomError.internalServer();
+        }
+    }
+
+    async getAllClients(): Promise<ClientsEntity[]> {
+        try {
+            return await this.clientRepository.find();
+        } catch (error) {
+            throw CustomError.internalServer();
+        }
+    }
+
+    async getClientById(id: number): Promise<ClientsEntity | null> {
+        try {
+            return await this.clientRepository.findOne({ where: { id } });
+        } catch (error) {
+            console.error("Error fetching client by ID:", error);
             throw CustomError.internalServer();
         }
     }

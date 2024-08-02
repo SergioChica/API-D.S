@@ -1,5 +1,5 @@
 import { EmployeesEntity } from "../../../data";
-import { RegisterEmployeesDto } from "../../dto/auth/employees/register-clietns.dto";
+import { RegisterEmployeesDto } from "../../dto/auth/employees/register-employees.dto";
 
 export abstract class AuthEmployeesRepository {
     abstract register(registerEmployeesDto:RegisterEmployeesDto): Promise<EmployeesEntity>

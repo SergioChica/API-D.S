@@ -1,7 +1,7 @@
 // src/domain/entity/ClientEntity.ts
 import { Entity, PrimaryGeneratedColumn , Column } from 'typeorm';
 
-@Entity('example')
+@Entity('Empleado')
 export class EmployeesEntity {
   @PrimaryGeneratedColumn({name: 'Cedula_Empleado'})
   id?: number;
